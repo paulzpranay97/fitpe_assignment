@@ -382,7 +382,7 @@ a.help-center:hover {
 /* dashboard css  */
 
 .page-body{
-  /* border: 1px solid red; */
+
   width: 93%;
   height: 90vh;
   margin-left: 96px;
@@ -390,7 +390,7 @@ a.help-center:hover {
 }
 
 .ld-flex-row{
-  /* border: 1px solid green; */
+  
   display: flex;
   flex-wrap: wrap;
  justify-content: center;
