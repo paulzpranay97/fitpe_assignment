@@ -1,0 +1,588 @@
+* {
+    margin: 0;
+    padding: 0;
+}
+
+body{
+  background-color: #121418;
+}
+
+
+.logo {
+  position: absolute;
+  max-width: 100%;
+  height: auto;
+  margin-left: 19px;
+  
+  top: 13px;
+  transition: margin-left 0.3s ease;
+}
+
+
+/* Adjust logo position when sidebar is collapsed */
+.logo.collapsed {
+    margin-left: 25px; /* Decrease margin to move logo left */
+}
+
+.header {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    background: #1f2029; /* Change this to your header's background color */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    padding: 10px 20px; /* Adjust padding as needed */
+}
+.header-left {
+    display: flex;
+    gap : 30px;
+    padding-left: 0px; /* Base padding */
+    transition: padding-left 0.3s ease; /* Smooth transition for padding changes */
+  }
+
+/* Increased padding when sidebar is expanded */
+.header-left.collapsed {
+    padding-left: 50px; /* Adjust this value based on your sidebar's expanded width */
+  }
+  
+
+.header-right {
+    display: flex;
+    align-items: center;
+}
+
+.header-right .notifications,
+.header-right .profile {
+    margin-left: 20px;
+}
+
+.header-right .notification-icon,
+.header-right .profile-image {
+    height: 24px; /* Adjust to the size of your icons */
+    cursor: pointer;
+}
+.dropdown-menu {
+    display: block; /* changed from none to block for testing purposes */
+    position: absolute;
+    right: 0; /* align to the right side of the header */
+    background-color: #ffffff;
+    border-radius: 5px; /* Rounded corners */
+    font-family: 'Arial', Manrope; 
+    line-height: 21.86px;
+    text-align: left;
+    min-width: 200px;
+    min-height: 400px;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    z-index: 1000; /* increase z-index to bring it to the front */
+  }
+  
+  .dropdown-menu a {
+    color: black;
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+  }
+  
+  /* Assuming .profile is the parent of .dropdown-menu */
+  .profile {
+    position: relative; /* this is necessary for absolute positioning of children */
+  }
+  
+  .icon {
+    margin-right: 8px;
+    width: 16px;
+    height: 16px;
+  }
+  /* Style for the divider */
+
+  .dropdown-item.active {
+    background-color: #F7F7F7; /* Light grey background for active state */
+  }
+  
+  /* Hover state for a dropdown item */
+  .dropdown-item:hover {
+    
+    color: white; /* This changes the text color to white */
+  }
+  .dropdown-item:hover .icon,
+  .dropdown-item:focus .icon { /* Hover and focus effect for the icon */
+    filter: brightness(0) invert(1); /* Inverts the color of the icon to white on hover/focus */
+  }
+  
+  /* Style for the logout link to look like a button */
+  .logout {
+    align-items: center; /* Vertically centers the icon and text */
+    justify-content: center; /* Centers content horizontally */
+    font-size: 15px; /* Increased font size for the logout text */
+    border: 1px solid #d9534f; /* Border to give the outline effect */
+    border-radius: 5px; /* Less rounded corners compared to the first image */
+    transition: all 0.3s ease; /* Smooth transition for background and text color */
+    height: 10px;
+    width: 60%;
+    margin-left: 20px;
+    margin-top: 24px;
+  }
+  
+ /* Style for the logout icon */
+.logout-icon {
+    margin-left: 54px; /* Adjust space between the text and the icon */
+    width: 20px; /* Adjust the width of the icon */
+    height: 20px; /* Adjust the height of the icon */
+    align-self: center; /* Ensures the icon is vertically centered */
+  }
+  
+ .dropdown-item.logout {
+  display: flex;
+  align-items: center; /* This will vertically center your text */
+  justify-content: center; /* This will horizontally center your text */
+  text-align: center; /* This ensures text is centered; useful if the flex properties don't work as intended */
+}
+
+  
+  /* Hover effect for the logout button */
+  .logout:hover,
+  .logout:focus { /* Focus for accessibility */
+    background-color: #d9534f; /* Background color on hover/focus */
+    color: white; /* Text color on hover/focus */
+  }
+  
+  .logout:hover .logout-icon,
+  .logout:focus .logout-icon { /* Hover and focus effect for the icon */
+    filter: brightness(0) invert(1); /* Inverts the color of the icon to white on hover/focus */
+  }
+  
+
+  .modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .modal-content {
+    background-color: white;
+    padding: 20px;
+    border-radius: 5px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+  }
+  
+  .modal-actions {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 10px;
+  }
+  
+/* style for sidebar */
+
+.im-content {
+    display: flex;
+}
+.im-sidebar {
+    position: relative; /* Ensure that position is set to relative */
+    width: 250px; /* Adjust to your original width */
+    transition: width 0.5s; /* Smooth transition for width changes */
+    background-color: #1f2029 !important;
+}
+.im-sidebar.collapsed {
+    width: 90px; /* Set to the width that only fits the icons */
+}
+.im-sidebar.collapsed::before {
+    background-image: url("../public/images/expand.svg");
+    /* All other properties are the same, no need to repeat */
+}
+.im-sidebar.collapsed a span {
+    font-size: 0;
+    visibility: hidden;
+}
+
+/* Hide the text next to the icons in collapsed state */
+.im-sidebar.collapsed li a {
+    font-size: 0; /* Hide the text */
+    overflow: hidden;
+    white-space: nowrap;
+}
+
+/* Adjust the size and padding of list items to fit the collapsed state */
+.im-sidebar.collapsed li {
+    padding: 0px 5px; /* Adjust to fit your design */
+}
+
+aside.im-sidebar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 220px; /* Set the width to 260px */
+    height: 100%; /* Set the height to 909px */
+    background-color: #FFF;
+    border-radius: 0 24px 24px 0; /* Rounded corners on the right */
+    box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1); /* Subtle shadow on the right side */
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding-top: 68px; /* Space for top bar */
+    padding-bottom: 30px;
+    box-sizing: border-box;
+    z-index: 99;
+}
+aside.im-sidebar::before{
+    content: "";
+    background-image: url("../public/images/cross.svg");
+    background-repeat: no-repeat; /* Prevent repeating the background image */
+    /* background-position: center; 
+    background-size: contain; 
+     */
+    cursor: pointer; /* Makes it clear it's clickable */
+    height: 50px;
+    width: 50px;
+    position: absolute;
+    right: -20px;
+}
+
+.close-button {
+    position: absolute;
+    right: -20px;
+    top: 50px;
+    height: 50px;
+    width: 50px;
+    background: transparent; /* Makes the button invisible */
+    border: none; /* Removes the border */
+    cursor: pointer; /* Change the cursor to signify this can be clicked */
+}
+
+
+#sidebar {
+    margin: 0;
+    padding: 0;
+    background-color: #1f2029;
+    font-family: 'Arial', Manrope;
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 1.86px;
+    color: #000000; /* sets the text color to black */
+    margin-top: 20px;
+  }
+#sidebar li {
+    margin-bottom: 20px;
+}
+#sidebar li a {
+    display: flex;
+    align-items: center;
+    text-decoration: none;
+    color: #6e6f75;
+    padding: 12px 20px;
+    transition: background-color 0.3s, border-left-color 0.3s;
+    border-left: 4px solid transparent;
+}
+
+#sidebar li a.active,
+#sidebar li a:hover {
+  border-left: 5px solid #7294e4;
+    color: #7294e4; /* This changes the text color to white */
+}
+
+#sidebar li a i {
+    font-size: 24px;
+    margin-right: 10px;
+}
+#sidebar li a.active i,
+#sidebar li a:hover i {
+    color: #7294e4;
+    margin-right: 10px; /* Maintain your margin on active/hover */
+}
+
+.search-container i {
+  
+    position: absolute;
+    color: #ffffff94;
+    left: 70%;
+  
+}
+
+.notifications i{
+  color: #ffffff94;
+  font-size:20px;
+}
+/* Help Center link styles */
+/* Styles specific to the Help Center link */
+a.help-center {
+    display: flex;
+    align-items: center;
+    padding: 10px 20px; /* Adjust padding to your preference */
+    margin-bottom: 30px; /* Increase the bottom margin as needed */
+    text-decoration: none;
+    color: #333; /* Text color */
+    font-size: 16px; /* Font size */
+    background-color: #FFF; /* Button background color */
+    border: 1px solid #CECECE; /* Button border color */
+    border-radius: 08px; /* Rounded corners */
+    margin: 10px; /* Margin around the button */
+    transition: all 0.2s ease; /* Transition for interactive effects */
+}
+
+/* Icon styles */
+a.help-center i {
+    margin-right: 10px; /* Space between icon and text */
+}
+
+/* Interactive effects */
+a.help-center:hover {
+    background-color: #f9f9f9; /* Slightly darker background on hover */
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.15); /* Deeper shadow on hover for a "lifted" effect */
+}
+
+#sidebar li.active {
+    background-color: #FBF8FC; /* Change this to your desired active background color */
+    
+}
+
+#sidebar li.active a {
+    color: #964FA7; /* Change this to your desired active text color */
+}
+#sidebar li.active a:hover {
+    background: #FBF8FC; /* Change this to your desired active text color */
+}
+
+.search-container {
+    position: relative;
+    display: flex;
+    align-items: center;
+    width: 350px;
+}
+
+.search-box {
+    padding-left: 40px; 
+    margin-left: 228px;/* Adjust this value so the text starts after the search icon */
+    border-radius: 10px;
+    border: 1px solid #ccc;
+    height: 40px;
+    width: 270px;
+    background-color: #000000;
+}
+
+
+.search-icon {
+    position: absolute;
+    left: 10px; /* Or enough to not overlap with text */
+    top: 50%;
+    transform: translateY(-50%);
+    background-image: url('../public/images/search.svg');
+    background-size: 20px;
+    background-repeat: no-repeat;
+    height: 20px;
+    width: 20px;
+}
+
+
+
+/* dashboard css  */
+
+.page-body{
+  border: 1px solid red;
+  width: 93%;
+  height: 90vh;
+  margin-left: 96px;
+  color: #ffffff;
+}
+
+.ld-flex-row{
+  border: 1px solid green;
+  display: flex;
+  flex-wrap: wrap;
+ justify-content: center;
+  align-items: center;
+  width: 100%;
+}
+
+.ld-flex-col-10{
+
+  width: 100%;
+}
+
+.ld-flex-col-7{
+  width: 70%;
+}
+.ld-flex-col-6{
+  width: 60%;
+}
+.ld-flex-col-5{
+  width: 50%;
+}
+.ld-flex-col-4{
+  width: 40%;
+}
+.ld-flex-col-3{
+  width: 30%;
+}
+.ld-flex-col-2-5{
+  width: 25%;
+}
+
+.heading{
+  min-height: 30px;
+  padding: 10px 20px;
+}
+
+.heading h1{
+  color: #ffffff;
+  font-size: 18px;
+}
+
+
+.cards-main-continer{
+  box-sizing: border-box;
+  padding: 0px 10px;
+}
+
+.cards-1 {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 0;
+  margin: 0;
+}
+
+
+.top-cards {
+  width:80%;
+  height:16vh;
+  margin: 10px 0px;
+  border-radius:8px;
+  background:#1f2029;
+  display:flex;
+  flex-direction:column;
+  align-items:flex-start;
+  justify-content:center;
+  gap:10px;
+  padding:20px;
+}
+
+
+.top-cards > i{
+  font-size:24px;
+  background:#4d73f247;
+  color:#4d73f2;
+  border-radius: 50%; 
+  padding: 8px 10px; 
+  display: inline-block; 
+}
+
+.top-cards > p{
+  font-size:14px;
+}
+.price{
+  color:#ffff !important;
+  font-size:20px;
+  font-weight:600;
+  
+}
+.top-cards span{
+  color:green
+}
+.top-cards span:nth-child(2){
+  margin-left:6rem;
+}
+
+.top-cards-2 {
+  width:80%;
+  height:16vh;
+  margin: auto;
+  border-radius:8px;
+  background:#1f2029;
+  display:flex;
+  flex-direction:row;
+  align-items:center;
+  justify-content:space-around;
+  gap:10px;
+  padding:20px;
+}
+
+
+.chart-mid {
+  font-size:8px;
+  position:relative;
+  top:-2.8rem;
+  left:2.2rem;
+}
+
+.chart-last {
+  font-size:8px;
+  margin-left:-4rem;
+}
+
+.net-prof-div p:nth-child(1) {
+  font-size: 14px;
+}
+
+.net-prof-div p:nth-child(2) {
+  font-size: 24px;
+  font-weight:700;
+  margin-top:20px;
+}
+
+.net-prof-div p:nth-child(3) {
+  font-size: 14px;
+  font-weight:700;
+  margin-top:20px;
+  color:green; 
+}
+
+.ld-flex-row.cards-main-continer-bar-chart {
+  background:#1f2029;
+  box-sizing:border-box;
+  padding:20px;
+  width:97%;
+  margin:10px 15px 10px 15px;
+  border-radius:10px
+}
+
+.goal-pop-menu-main {
+  display:flex;
+  flex-direction:column;
+  background:#1f2029;
+  height: 340px;
+  border-radius:10px;
+ margin:20px;
+}
+.goal-pop-menu{
+  display:flex;
+  justify-content:space-evenly;
+  align-items:center;
+  gap:20px;
+  height:33.5%;
+  width:100%;
+}
+
+.goal-pop-menu i:nth-child(1){
+font-size:24px;
+background:#4d73f247;
+color:#4d73f2;
+border-radius: 50%; 
+padding: 8px 10px; 
+display: inline-block; 
+  margin-left:-110px;
+}
+
+.goal-pop-menu i:nth-child(3){
+font-size:24px;
+background:#6e6f7582;
+color:#6e6f75;
+border-radius: 50%; 
+padding: 8px 10px; 
+display: inline-block; 
+  margin-right:-110px;
+   
+}
+
+.goal-pop-menu p{
+  margin-left:-150px;
+  font-size:18px;
+  font-weight:600;
+}
+
+
+
