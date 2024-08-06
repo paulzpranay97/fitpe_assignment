@@ -1,6 +1,6 @@
 // components/Dashboard.js
 import React from 'react';
-import Typography from '@mui/material/Typography';
+// import Typography from '@mui/material/Typography';
 import { BarChart, Bar, XAxis, YAxis, Tooltip, CartesianGrid } from 'recharts';
 
 import { CircularProgress, Box } from '@mui/material';
